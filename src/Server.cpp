@@ -1,19 +1,26 @@
 #include <iostream>
 #include <string>
-#include <algorithm> // <- important for std::any_of
+#include <algorithm>
 #include <cctype>
 
+
 bool digit_check(const std::string& s) {
-    std::any_of(s.begin(), s.end(), [](char c){
-            return std::isdigit(static_cast<unsigned char>(c));
-        });
+    bool check_flag = false;
+    for (char c : s) {
+        if (std::isdigit(c)) {
+            check_flag = true;
+            break;
+        }
+    }
+    return check_flag;
 }
+
 bool match_pattern(const std::string& input_line, const std::string& pattern) {
     if (pattern.length() == 1) {
         return input_line.find(pattern) != std::string::npos;
-    } else if (pattern == "\d") {
+    } else if (pattern == "\\d") {
         bool digit_flag = digit_check(input_line);
-        return (int) digit_flag;
+        return digit_flag? true: false;
     }
     else {
         throw std::runtime_error("Unhandled pattern " + pattern);
@@ -48,8 +55,10 @@ int main(int argc, char* argv[]) {
     //
     try {
        if (match_pattern(input_line, pattern)) {
+            std::cout << "0";
             return 0;
         } else {
+            std::cout << "1";
             return 1;
         }
     } catch (const std::runtime_error& e) {

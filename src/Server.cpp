@@ -1,9 +1,19 @@
 #include <iostream>
 #include <string>
+#include <algorithm> // <- important for std::any_of
+#include <cctype>
 
+bool digit_check(const std::string& s) {
+    std::any_of(s.begin(), s.end(), [](char c){
+            return std::isdigit(static_cast<unsigned char>(c));
+        });
+}
 bool match_pattern(const std::string& input_line, const std::string& pattern) {
     if (pattern.length() == 1) {
         return input_line.find(pattern) != std::string::npos;
+    } else if (pattern == "\d") {
+        bool digit_flag = digit_check(input_line);
+        return (int) digit_flag;
     }
     else {
         throw std::runtime_error("Unhandled pattern " + pattern);

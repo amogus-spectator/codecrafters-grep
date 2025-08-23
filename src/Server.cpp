@@ -15,12 +15,26 @@ bool digit_check(const std::string& s) {
     return check_flag;
 }
 
+bool word_check(const std::string& s) {
+    bool check_flag = false;
+    for (char c : s) {
+        if (std::isalnum(c)) {
+            check_flag = true;
+            break;
+        }
+    }
+    return check_flag;
+}
+
 bool match_pattern(const std::string& input_line, const std::string& pattern) {
     if (pattern.length() == 1) {
         return input_line.find(pattern) != std::string::npos;
     } else if (pattern == "\\d") {
         bool digit_flag = digit_check(input_line);
         return digit_flag? true: false;
+    } else if (pattern == "\\w") {
+        bool word_flag = word_check(input_line);
+        return word_flag? true:false;
     }
     else {
         throw std::runtime_error("Unhandled pattern " + pattern);

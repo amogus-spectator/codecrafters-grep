@@ -18,7 +18,7 @@ bool digit_check(const std::string& s) {
 bool word_check(const std::string& s) {
     bool check_flag = false;
     for (char c : s) {
-        if (std::isalnum(c)) {
+        if (std::isalnum(c) || c == '_') {
             check_flag = true;
             break;
         }

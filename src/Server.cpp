@@ -57,7 +57,6 @@ bool match_precise_positive_character_group(const std::string& s, const std::str
         std::cout << matching_string << std::endl;
         std::vector<char> matching_char_vector = split_string_into_char(matching_string);
         for (char c : matching_char_vector) {
-            std::cout << c << std::endl;
             size_t matcher = input_line.find(c);
             if (matcher == std::string::npos) {
                 return true;
